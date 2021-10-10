@@ -7,9 +7,6 @@ const NotificationSchema = new mongoose.Schema({
   message: {
     type: [String],
   },
-  iconSrc: {
-    type: String,
-  },
   color: {
     type: String,
   },

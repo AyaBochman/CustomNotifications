@@ -2,25 +2,21 @@
   {
     "type": "info",
     "message": ["Big sale next week", "New auction next month"],
-    "iconSrc": "photo.jpg",
-    "color": "blue"
+    "color": "#0275d8"
   },
   {
     "type": "warning",
     "message": ["Limited edition books for next auction"],
-    "iconSrc": "photo.jpg",
-    "color": "yellow"
+    "color": "#0275d8"
   },
   {
     "type": "success",
     "message": ["New books with limited edition coming next week"],
-    "iconSrc": "photo.jpg",
-    "color": "green"
+    "color": "#5cb85c"
   },
   {
     "type": "error",
     "message": ["Last items with limited time offer"],
-    "iconSrc": "photo.jpg",
-    "color": "red"
+    "color": "#d9534f"
   }
 ]

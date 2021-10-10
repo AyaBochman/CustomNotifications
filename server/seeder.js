@@ -5,6 +5,7 @@ require('dotenv').config();
 //Load models
 const Notification = require('./models/Notification');
 const Configuration = require('./models/Configuration');
+const User = require('./models/User');
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -33,6 +34,7 @@ const deleteData = async () => {
   try {
     await Notification.deleteMany();
     await Configuration.deleteMany();
+    await User.deleteMany();
     console.log('Data destroyed...');
     process.exit();
   } catch (err) {
