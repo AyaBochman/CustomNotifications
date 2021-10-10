@@ -1,10 +1,7 @@
 const express = require('express');
-const dotenv = require('dotenv');
-const colors = require('colors');
+require('dotenv').config()
 const connectDB = require('./config/db');
-
-//env vars
-dotenv.config({ path: './config/config.env' });
+const colors = require('colors');
 
 //connection to db
 connectDB();
@@ -12,8 +9,8 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV}, App listening on port ${PORT}`.green);
 });

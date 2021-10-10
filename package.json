@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server"
+    "start": "NODE_ENV=production node server",
+    "dev": "node server"
   },
   "author": "Aya Bochman",
   "license": "ISC",
