@@ -1,0 +1,8 @@
+[
+  {
+    "minShowTimePeriod": 5,
+    "maxShowTimePeriod": 10,
+    "minDuration": 1,
+    "maxDuration": 4
+  }
+]

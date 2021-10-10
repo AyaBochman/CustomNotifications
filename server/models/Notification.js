@@ -13,6 +13,10 @@ const NotificationSchema = new mongoose.Schema({
   color: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('notification', NotificationSchema);
