@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createUser } from './redux/features/users/usersSlice';
-import { getNotifications } from './redux/features/notifications/notificationsSlice';
+import {
+  createUser,
+  getNotifications,
+  getConfigurations,
+} from './redux/features';
+import Main from './components/Main';
 
 function App() {
   const dispatch = useDispatch();
@@ -9,6 +13,7 @@ function App() {
   useEffect(() => {
     async function loadData() {
       try {
+        await dispatch(getConfigurations());
         await dispatch(createUser());
         await dispatch(getNotifications());
       } catch (error) {
@@ -20,7 +25,7 @@ function App() {
 
   return (
     <div>
-      <h1>Custom Notifications</h1>
+      <Main />
     </div>
   );
 }
