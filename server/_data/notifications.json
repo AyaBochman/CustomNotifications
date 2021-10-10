@@ -1,0 +1,26 @@
+[
+  {
+    "type": "info",
+    "message": ["Big sale next week", "New auction next month"],
+    "iconSrc": "photo.jpg",
+    "color": "blue"
+  },
+  {
+    "type": "warning",
+    "message": ["Limited edition books for next auction"],
+    "iconSrc": "photo.jpg",
+    "color": "yellow"
+  },
+  {
+    "type": "success",
+    "message": ["New books with limited edition coming next week"],
+    "iconSrc": "photo.jpg",
+    "color": "green"
+  },
+  {
+    "type": "error",
+    "message": ["Last items with limited time offer"],
+    "iconSrc": "photo.jpg",
+    "color": "red"
+  }
+]
