@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import {isEmpty} from '../utils/functions'
 
 const CustomNotification = ({ props }) => {
   const { type, message, color, duration, handleClose } = props;
@@ -33,14 +34,12 @@ if(props){
 
   return (
     <>
-      {props ? (
+      {!isEmpty(props) ? (
         <StyledNotification color={boxColor}>
-          {messageTitle && messageText ? (
             <div>
               <b>{messageTitle}:&nbsp;</b>
               {messageText}
             </div>
-          ) : null}
           <IconButton onClick={handleClose} className={'closeBtn'}>
             <CloseIcon />
           </IconButton>
@@ -54,8 +53,10 @@ export default CustomNotification;
 
 const StyledNotification = styled.div`
   width: 500px;
-  height: 100px;
+  min-height: 100px;
   margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 45px;
   border-radius: 20px;
   background-color: ${(props) => props.color || ''};
   display: flex;

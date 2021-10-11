@@ -1,4 +1,3 @@
-import { stripColors } from 'colors';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -16,9 +15,7 @@ const Main = () => {
 
   const [notificationsData, setNotificationsData] = useState([]);
   const [randNotification, setRandNotification] = useState({});
-  const [randomShowTimePeriod, setRandomShowTimePeriod] = useState(0);
-  //   const randomShowTimePeriod =
-  //     getNumberFromRange(minShowTimePeriod, maxShowTimePeriod) * 1000;
+  const [randomShowTimePeriod, setRandomShowTimePeriod] = useState(null);
 
   useEffect(() => {
     if (notifications?.length && !isEmpty(config)) {
@@ -28,7 +25,7 @@ const Main = () => {
   }, [notifications, config]);
 
   useEffect(() => {
-    if (!isEmpty(config)) {
+    if (randomShowTimePeriod) {
       const interval = setInterval(() => {
         getRandomNotification();
       }, randomShowTimePeriod);
