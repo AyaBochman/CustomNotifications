@@ -38,7 +38,7 @@ const Main = () => {
     const { minDuration, maxDuration, minShowTimePeriod, maxShowTimePeriod } =
       config;
     const randomNotification = getRandomArrItem(arr);
-    const notificationDuration = getNumberFromRange(minDuration, maxDuration);
+    const notificationDuration = getNumberFromRange(minDuration, maxDuration) * 1000;
 
     const finalNotification = {
       type: randomNotification.type,

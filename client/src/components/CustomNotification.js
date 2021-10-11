@@ -2,45 +2,39 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import {isEmpty} from '../utils/functions'
 
 const CustomNotification = ({ props }) => {
   const { type, message, color, duration, handleClose } = props;
-  const [boxColor, setBoxColor] = useState('');
-  const [messageText, setMessageText] = useState('');
-  const [messageTitle, setMessageTitle] = useState('');
-
-useEffect(()=>{
-if(props){
-    console.log('props',props)
-}else{
-    console.log(' no props',props)
-}
-},[props])
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    if (type && message && color) {
-      setBoxColor(color);
-      handleText(type, message);
+    if (type && message && color && duration && handleClose) {
+      setNotification({
+        type,
+        messageTitle: type.charAt(0).toUpperCase() + type.slice(1),
+        messageText: message,
+        color,
+        duration,
+        handleClose,
+      });
     }
-  }, [type, message, color]);
+  }, [type, message, color, duration]);
 
-  const handleText = (type, text) => {
-    if (type && text) {
-      setMessageTitle(type.charAt(0).toUpperCase() + type.slice(1));
-      setMessageText(text);
-    }
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setNotification(null);
+    }, duration);
+  }, [duration]);
 
   return (
     <>
-      {!isEmpty(props) ? (
-        <StyledNotification color={boxColor}>
-            <div>
-              <b>{messageTitle}:&nbsp;</b>
-              {messageText}
-            </div>
-          <IconButton onClick={handleClose} className={'closeBtn'}>
+      {notification ? (
+        <StyledNotification color={notification.color}>
+          <div>
+            <b>{notification.messageTitle}:&nbsp;</b>
+            {notification.messageText}
+          </div>
+          <IconButton onClick={notification.handleClose} className={'closeBtn'}>
             <CloseIcon />
           </IconButton>
         </StyledNotification>
