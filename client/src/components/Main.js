@@ -1,3 +1,4 @@
+import { stripColors } from 'colors';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -28,6 +29,7 @@ const Main = () => {
       type: randomNotification.type,
       color: randomNotification.color,
       message: handleMessage(randomNotification.message),
+      handleClose: onNotificationClose,
       duration: notificationDuration,
     };
     console.log('notification final====', notif);
@@ -47,18 +49,29 @@ const Main = () => {
 
   const handleMessage = (message) => {
     const randMessage = getRandomArrItem(message);
-    let str = '';
+    let str = randMessage;
     if (randMessage.toLowerCase().includes('sale')) {
-      str = `${randMessage}!`;
-    } else if (randMessage.toLowerCase().includes('new')) {
-      str = `~~${randMessage}`;
-    } else if (randMessage.toLowerCase().includes('limited edition')) {
-      const splitted = randMessage.toLowerCase().split('limited edition');
-      str = `${splitted[0]}LIMITED EDITION${splitted[1]}`;
-    } else {
-      str = randMessage;
+      str = `${str}!`;
+    }
+    if (randMessage.toLowerCase().includes('new')) {
+      str = `~~${str}`;
+    }
+    if (randMessage.toLowerCase().includes('limited edition')) {
+      let word = str.match(/\b(limited\sedition)\b/gi);
+
+      if (word.length > 1) {
+        word.forEach((w, i) => {
+          str = str.replace(word[i], word[i].toUpperCase());
+        });
+      } else {
+        str = str.replace(word[0], word[0].toUpperCase());
+      }
     }
     return str;
+  };
+
+  const onNotificationClose = () => {
+    console.log('close');
   };
 
   return (

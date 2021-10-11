@@ -1,26 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const CustomNotification = ({ props }) => {
-  const { type, message, color } = props;
+  const { type, message, color, handleClose } = props;
   const [boxColor, setBoxColor] = useState('');
-  const [text, setText] = useState('');
+  const [messageText, setMessageText] = useState('');
+  const [messageTitle, setMessageTitle] = useState('');
 
   useEffect(() => {
     if (type && message && color) {
       setBoxColor(color);
-      setText(handleText(type, message));
+      handleText(type, message);
     }
   }, [type, message, color]);
 
   const handleText = (type, text) => {
-    return `${type && type.charAt(0).toUpperCase() + type.slice(1)}: ${text}`;
+    if (type && text) {
+      setMessageTitle(type.charAt(0).toUpperCase() + type.slice(1));
+      setMessageText(text);
+    }
   };
 
   return (
     <>
       {props ? (
-        <StyledNotification color={boxColor}>{text}</StyledNotification>
+        <StyledNotification color={boxColor}>
+          {messageTitle && messageText ? (
+            <div>
+              <b>{messageTitle}:&nbsp;</b>
+              {messageText}
+            </div>
+          ) : null}
+          <IconButton onClick={handleClose} className={'closeBtn'}>
+            <CloseIcon />
+          </IconButton>
+        </StyledNotification>
       ) : null}
     </>
   );
@@ -37,4 +53,10 @@ const StyledNotification = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  .closeBtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
 `;

@@ -7,7 +7,7 @@
   {
     "type": "warning",
     "message": ["Limited edition books for next auction"],
-    "color": "#0275d8"
+    "color": "#f0ad4e"
   },
   {
     "type": "success",

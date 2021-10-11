@@ -4,6 +4,11 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "@emotion/core": "^10.1.1",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.3",
+    "@mui/material": "^5.0.3",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
