@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CustomNotification from './CustomNotification';
+import { getNumberFromRange, getRandomArrItem } from '../utils/functions';
 
 const Main = () => {
   const notifications = useSelector((state) => state.notifications.data);
@@ -36,37 +37,54 @@ const Main = () => {
     setRandNotification(notif);
   };
 
-  const getRandomArrItem = (arr) => {
-    if (arr.length > 1) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-    return arr[0];
-  };
-
-  const getNumberFromRange = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
   const handleMessage = (message) => {
     const randMessage = getRandomArrItem(message);
     let str = randMessage;
-    if (randMessage.toLowerCase().includes('sale')) {
-      str = `${str}!`;
-    }
-    if (randMessage.toLowerCase().includes('new')) {
-      str = `~~${str}`;
-    }
-    if (randMessage.toLowerCase().includes('limited edition')) {
-      let word = str.match(/\b(limited\sedition)\b/gi);
-
-      if (word.length > 1) {
-        word.forEach((w, i) => {
-          str = str.replace(word[i], word[i].toUpperCase());
-        });
-      } else {
-        str = str.replace(word[0], word[0].toUpperCase());
+    const words = { 1: 'sale', 2: 'new', 3: 'limited edition' };
+    for (let key in words) {
+      if (str.toLowerCase().includes(words[key])) {
+        switch (key) {
+          case '1': {
+            str = `${str}!`;
+            break;
+          }
+          case '2':
+            str = `~~${str}`;
+            break;
+          case '3':
+            let foundWord = str.match(/\b(limited\sedition)\b/gi);
+            if (foundWord.length > 1) {
+              foundWord.map((word) => {
+                str = str.replace(word, word.toUpperCase());
+              });
+            } else {
+              str = str.replace(foundWord[0], foundWord[0].toUpperCase());
+            }
+            break;
+          default:
+            return str;
+        }
       }
     }
+
+    // if (randMessage.toLowerCase().includes('sale')) {
+    //   str = `${str}!`;
+    // }
+    // if (randMessage.toLowerCase().includes('new')) {
+    //   str = `~~${str}`;
+    // }
+    // if (randMessage.toLowerCase().includes('limited edition')) {
+    //   let word = str.match(/\b(limited\sedition)\b/gi);
+
+    //   if (word.length > 1) {
+    //     word.forEach((w, i) => {
+    //       str = str.replace(word[i], word[i].toUpperCase());
+    //     });
+    //   } else {
+    //     str = str.replace(word[0], word[0].toUpperCase());
+    //   }
+    // }
+
     return str;
   };
 
