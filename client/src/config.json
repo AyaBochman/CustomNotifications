@@ -1,5 +1,5 @@
 {
-  "NOTIFICATIONS_API": "http://localhost:3000/api/v1/notifications",
-  "CONFIG_API": "http://localhost:3000/api/v1/configurations",
-  "USERS_API": "http://localhost:3000/api/v1/users"
+  "NOTIFICATIONS_API": "http://localhost:3001/api/v1/notifications",
+  "CONFIG_API": "http://localhost:3001/api/v1/configurations",
+  "USERS_API": "http://localhost:3001/api/v1/users"
 }

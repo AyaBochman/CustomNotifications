@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-const CustomNotification = ({ props }) => {
-  const { type, message, color, duration, handleClose } = props;
+const CustomNotification = ({ randomNotification, notificationObj }) => {
+  const { type, message, color, duration, handleClose } = randomNotification;
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
@@ -26,6 +26,11 @@ const CustomNotification = ({ props }) => {
     }, duration);
   }, [duration]);
 
+  const onClose = () => {
+    handleClose(notificationObj);
+    setNotification(null);
+  };
+
   return (
     <>
       {notification ? (
@@ -34,7 +39,7 @@ const CustomNotification = ({ props }) => {
             <b>{notification.messageTitle}:&nbsp;</b>
             {notification.messageText}
           </div>
-          <IconButton onClick={notification.handleClose} className={'closeBtn'}>
+          <IconButton onClick={onClose} className={'closeBtn'}>
             <CloseIcon />
           </IconButton>
         </StyledNotification>

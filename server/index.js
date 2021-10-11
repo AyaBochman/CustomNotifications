@@ -13,6 +13,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors())
+
 //Mount routers
 app.use('/api/v1/notifications', notifications);
 app.use('/api/v1/configurations', configurations);

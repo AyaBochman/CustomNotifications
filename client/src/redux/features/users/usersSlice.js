@@ -7,6 +7,13 @@ export const createUser = createAsyncThunk('users/createUser', async () => {
   return user.data;
 });
 
+export const updateUser = createAsyncThunk('users/updateUser', async (body) => {
+  const user = await axios.put(`${configData.USERS_API}/${body.userId}`, {
+    notifications: body.notifications,
+  });
+  return user.data;
+});
+
 export const usersSlice = createSlice({
   name: 'users',
   initialState: {},
@@ -14,9 +21,12 @@ export const usersSlice = createSlice({
     [createUser.fulfilled]: (state, { payload }) => {
       state.data = payload.data;
     },
+    [updateUser.fulfilled]: (state, { payload }) => {
+      state.data = payload.data;
+    },
   },
 });
 
-export const { createUserAction } = usersSlice.actions;
+export const { createUserAction, updateUserAction } = usersSlice.actions;
 
 export default usersSlice.reducer;
