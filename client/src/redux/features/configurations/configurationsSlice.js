@@ -1,13 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import configData from '../../../config.json';
 import axios from 'axios';
 
 export const getConfigurations = createAsyncThunk(
   'configurations/getConfigurations',
   async () => {
-    const configurations = await axios.get(
-      'http://localhost:3001/api/v1/configurations'
-    );
-    console.log('result in get configurations', configurations.data);
+    const configurations = await axios.get(configData.CONFIG_API);
     return configurations.data;
   }
 );

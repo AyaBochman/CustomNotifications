@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import configData from '../../../config.json';
 import axios from 'axios';
 
 export const createUser = createAsyncThunk('users/createUser', async () => {
-  const user = await axios.post('http://localhost:3001/api/v1/users');
-  console.log('result in create user', user.data);
+  const user = await axios.post(configData.USERS_API);
   return user.data;
 });
 

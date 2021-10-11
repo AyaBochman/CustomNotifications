@@ -1,13 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import configData from '../../../config.json';
 import axios from 'axios';
 
 export const getNotifications = createAsyncThunk(
   'notifications/getNotifications',
   async () => {
-    const notifications = await axios.get(
-      'http://localhost:3001/api/v1/notifications'
-    );
-    console.log('result in get notifications', notifications.data);
+    const notifications = await axios.get(configData.NOTIFICATIONS_API);
     return notifications.data;
   }
 );

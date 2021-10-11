@@ -6,7 +6,7 @@ import {
   getNumberFromRange,
   getRandomArrItem,
   isEmpty,
-  handleMessage
+  handleMessage,
 } from '../utils/functions';
 
 const Main = () => {
@@ -37,8 +37,10 @@ const Main = () => {
     let arr = notificationsData?.length ? notificationsData : notifications;
     const { minDuration, maxDuration, minShowTimePeriod, maxShowTimePeriod } =
       config;
+
     const randomNotification = getRandomArrItem(arr);
-    const notificationDuration = getNumberFromRange(minDuration, maxDuration) * 1000;
+    const notificationDuration =
+      getNumberFromRange(minDuration, maxDuration) * 1000;
 
     const finalNotification = {
       type: randomNotification.type,
@@ -47,9 +49,11 @@ const Main = () => {
       handleClose: onNotificationClose,
       duration: notificationDuration,
     };
+
     setRandomShowTimePeriod(
       getNumberFromRange(minShowTimePeriod, maxShowTimePeriod) * 1000
     );
+
     setRandNotification(finalNotification);
   };
 

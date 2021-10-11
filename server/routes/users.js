@@ -1,7 +1,8 @@
 const express = require('express');
 const {
 createUser,
-getUsers
+getUsers,
+updateUser
 } = require('../controllers/users');
 
 const router = express.Router();
@@ -9,5 +10,8 @@ const router = express.Router();
 router.route('/')
 .get(getUsers)
 .post(createUser)
+
+router.route('/:id')
+.put(updateUser)
 
 module.exports = router;
