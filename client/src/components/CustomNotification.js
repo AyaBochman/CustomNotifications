@@ -4,10 +4,18 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 const CustomNotification = ({ props }) => {
-  const { type, message, color, handleClose } = props;
+  const { type, message, color, duration, handleClose } = props;
   const [boxColor, setBoxColor] = useState('');
   const [messageText, setMessageText] = useState('');
   const [messageTitle, setMessageTitle] = useState('');
+
+useEffect(()=>{
+if(props){
+    console.log('props',props)
+}else{
+    console.log(' no props',props)
+}
+},[props])
 
   useEffect(() => {
     if (type && message && color) {

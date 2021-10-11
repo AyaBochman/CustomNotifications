@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CustomNotification from './CustomNotification';
-import { getNumberFromRange, getRandomArrItem } from '../utils/functions';
+import {
+  getNumberFromRange,
+  getRandomArrItem,
+  isEmpty,
+  handleMessage
+} from '../utils/functions';
 
 const Main = () => {
   const notifications = useSelector((state) => state.notifications.data);
@@ -11,81 +16,44 @@ const Main = () => {
 
   const [notificationsData, setNotificationsData] = useState([]);
   const [randNotification, setRandNotification] = useState({});
+  const [randomShowTimePeriod, setRandomShowTimePeriod] = useState(0);
+  //   const randomShowTimePeriod =
+  //     getNumberFromRange(minShowTimePeriod, maxShowTimePeriod) * 1000;
 
   useEffect(() => {
-    console.log('condig', config);
-    if (notifications?.length && config) {
+    if (notifications?.length && !isEmpty(config)) {
       setNotificationsData(notifications);
-      getRandomNotification(notifications, config);
+      getRandomNotification();
     }
   }, [notifications, config]);
 
-  const getRandomNotification = (arr, config) => {
-    const { minDuration, maxDuration } = config;
+  useEffect(() => {
+    if (!isEmpty(config)) {
+      const interval = setInterval(() => {
+        getRandomNotification();
+      }, randomShowTimePeriod);
+      return () => clearInterval(interval);
+    }
+  }, [randomShowTimePeriod]);
 
+  const getRandomNotification = () => {
+    let arr = notificationsData?.length ? notificationsData : notifications;
+    const { minDuration, maxDuration, minShowTimePeriod, maxShowTimePeriod } =
+      config;
     const randomNotification = getRandomArrItem(arr);
     const notificationDuration = getNumberFromRange(minDuration, maxDuration);
 
-    const notif = {
+    const finalNotification = {
       type: randomNotification.type,
       color: randomNotification.color,
       message: handleMessage(randomNotification.message),
       handleClose: onNotificationClose,
       duration: notificationDuration,
     };
-    console.log('notification final====', notif);
-    setRandNotification(notif);
-  };
-
-  const handleMessage = (message) => {
-    const randMessage = getRandomArrItem(message);
-    let str = randMessage;
-    const words = { 1: 'sale', 2: 'new', 3: 'limited edition' };
-    for (let key in words) {
-      if (str.toLowerCase().includes(words[key])) {
-        switch (key) {
-          case '1': {
-            str = `${str}!`;
-            break;
-          }
-          case '2':
-            str = `~~${str}`;
-            break;
-          case '3':
-            let foundWord = str.match(/\b(limited\sedition)\b/gi);
-            if (foundWord.length > 1) {
-              foundWord.map((word) => {
-                str = str.replace(word, word.toUpperCase());
-              });
-            } else {
-              str = str.replace(foundWord[0], foundWord[0].toUpperCase());
-            }
-            break;
-          default:
-            return str;
-        }
-      }
-    }
-
-    // if (randMessage.toLowerCase().includes('sale')) {
-    //   str = `${str}!`;
-    // }
-    // if (randMessage.toLowerCase().includes('new')) {
-    //   str = `~~${str}`;
-    // }
-    // if (randMessage.toLowerCase().includes('limited edition')) {
-    //   let word = str.match(/\b(limited\sedition)\b/gi);
-
-    //   if (word.length > 1) {
-    //     word.forEach((w, i) => {
-    //       str = str.replace(word[i], word[i].toUpperCase());
-    //     });
-    //   } else {
-    //     str = str.replace(word[0], word[0].toUpperCase());
-    //   }
-    // }
-
-    return str;
+    setRandomShowTimePeriod(
+      getNumberFromRange(minShowTimePeriod, maxShowTimePeriod) * 1000
+    );
+    setRandNotification(finalNotification);
   };
 
   const onNotificationClose = () => {
